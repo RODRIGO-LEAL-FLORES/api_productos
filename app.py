@@ -92,6 +92,37 @@ def insert_producto():
     return jsonify({'msg': 'Producto agregado correctamente'})
 
 
+# ============================
+# ACTUALIZAR PRODUCTO
+# ============================
+
+@app.route('/productos/<codigo_barras>', methods=['PUT'])
+def update_producto(codigo_barras):
+    producto = Producto.query.get(codigo_barras)
+    
+    if producto is None:
+        return jsonify({'msg': 'Producto no encontrado'})
+    
+    data = request.get_json()
+    
+    if "nombre" in data:
+        producto.nombre = data['nombre']
+        
+    if "precio_c" in data:
+        producto.precio_c = data['precio_c']
+        
+    if "precio_v" in data:
+        producto.precio_v = data['precio_v']
+        
+    if "descripcion" in data:
+        producto.descripcion = data['descripcion']
+        
+    db.session.commit()
+    
+    return jsonify({'msg': 'Producto actualizado correctamente'})
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True) 
