@@ -70,6 +70,26 @@ def get_producto(codigo_barras):
         'descripcion': producto.descripcion
     })
 
+# ============================
+# INSERTAR PRODUCTO
+# ============================
+
+@app.route('/productos', methods=['POST'])
+def insert_producto():
+    data = request.get_json()
+    
+    nuevo_producto = Producto(
+        codigo_barras = data['codigo_barras'],
+        nombre = data['nombre'],
+        precio_c = data['precio_c'],
+        precio_v = data['precio_v'],
+        descripcion = data['descripcion']
+    )
+    
+    db.session.add(nuevo_producto)
+    db.session.commit()
+    
+    return jsonify({'msg': 'Producto agregado correctamente'})
 
 
 
