@@ -121,7 +121,23 @@ def update_producto(codigo_barras):
     
     return jsonify({'msg': 'Producto actualizado correctamente'})
 
+# ============================
+# ELIMINAR PRODUCTO
+# ============================
 
+@app.route('/productos/<codigo_barras>', methods=['DELETE'])
+def delete_producto(codigo_barras):
+    producto = Producto.query.get(codigo_barras)
+    
+    if producto is None:
+        return jsonify({'msg': 'Producto no encontrado'})
+    
+    db.session.delete(producto)
+    db.session.commit()
+    
+    return jsonify({'msg': 'Producto eliminado correctamente'})
+
+# ============================
 
 
 if __name__ == '__main__':
