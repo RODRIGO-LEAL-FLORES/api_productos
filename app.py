@@ -74,4 +74,4 @@ def get_producto(codigo_barras):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 
